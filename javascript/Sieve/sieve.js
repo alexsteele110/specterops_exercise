@@ -7,32 +7,34 @@ class Sieve {
       throw new Error(ERRORS.INVALID_INPUT);
     }
 
-    // handle base cases
+    // handle base case
     if (n === 0) return 2;
-    if (n === 1) return 3;
 
     // use prime number theorem to estimate size of array we need
     const estimate = Math.round(n * (Math.log(n) + Math.log(Math.log(n))));
     // noticed estimate breaks for small N, add a minimum number
-    const upperBound = Math.max(15, estimate);
+    // divide by two to eliminate all even numbers for optimization
+    const upperBound = Math.max(15, Math.round(estimate / 2));
     const primes = new Array(upperBound).fill(true);
 
-    for (let i = 2; i <= upperBound; i++) {
-      // checking if actual 'true' here to be explicit for now
-      if (primes[i] === true) {
-        for (let j = 2 * i; j < upperBound; j += i) {
+    for (let i = 0; i < upperBound; i++) {
+      if (primes[i]) {
+        // since array only represents odds now, have to do some math to get
+        // what true value the index means
+        const indexVal = 2 * i + 3;
+        for (let j = (indexVal * indexVal - 3) / 2; j < upperBound - 1; j += indexVal) {
           primes[j] = false;
         }
       }
     }
 
     let count = 0;
-    for (let i = 2; i < primes.length; i++) {
-      if (primes[i] === true) {
+    for (let i = 0; i < primes.length; i++) {
+      if (primes[i]) {
         count++;
       }
-      if (count === n + 1) {
-        return i;
+      if (count === n) {
+        return 2 * i + 3;
       }
     }
 
