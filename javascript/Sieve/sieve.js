@@ -1,5 +1,12 @@
+const { ERRORS } = require("./constants");
+
 class Sieve {
   NthPrime(n) {
+    // validate input
+    if (!Number.isInteger(n) || n < 0) {
+      throw new Error(ERRORS.INVALID_INPUT);
+    }
+
     // handle base cases
     if (n === 0) return 2;
     if (n === 1) return 3;
@@ -30,8 +37,7 @@ class Sieve {
     }
 
     // if we reach here, something went wrong
-    // TODO: update this message
-    throw new Error("something went wrong...");
+    throw new Error(ERRORS.GENERIC);
   }
 }
 
