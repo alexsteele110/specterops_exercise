@@ -43,4 +43,7 @@ class Sieve {
   }
 }
 
+// INFO: to improve even more would try to refactor from one giant array to chunk/batch
+// style since memory is the limiting factor.
+
 module.exports = Sieve;
