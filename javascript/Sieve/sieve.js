@@ -15,7 +15,7 @@ class Sieve {
     // noticed estimate breaks for small N, add a minimum number
     // divide by two to eliminate all even numbers for optimization
     const upperBound = Math.max(15, Math.round(estimate / 2));
-    const primes = new Array(upperBound).fill(true);
+    const primes = new Uint8Array(upperBound).fill(true);
 
     for (let i = 0; i < upperBound; i++) {
       if (primes[i]) {
